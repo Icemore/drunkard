@@ -1,6 +1,6 @@
 package ru.spbau.drunkard;
 
-import ru.spbau.drunkard.Actors.*;
+import ru.spbau.drunkard.actors.*;
 
 import java.util.Arrays;
 import java.util.HashMap;

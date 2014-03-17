@@ -1,4 +1,4 @@
-package ru.spbau.drunkard.Actors;
+package ru.spbau.drunkard.actors;
 
 import ru.spbau.drunkard.Field;
 import ru.spbau.drunkard.Position;

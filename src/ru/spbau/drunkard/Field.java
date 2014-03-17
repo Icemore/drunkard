@@ -1,6 +1,6 @@
 package ru.spbau.drunkard;
 
-import ru.spbau.drunkard.Actors.Actor;
+import ru.spbau.drunkard.actors.Actor;
 
 import java.util.ArrayList;
 

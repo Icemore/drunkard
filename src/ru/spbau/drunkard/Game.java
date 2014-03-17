@@ -1,8 +1,8 @@
 package ru.spbau.drunkard;
 
-import ru.spbau.drunkard.Actors.Actor;
-import ru.spbau.drunkard.Actors.Pole;
-import ru.spbau.drunkard.Actors.Tavern;
+import ru.spbau.drunkard.actors.Actor;
+import ru.spbau.drunkard.actors.Pole;
+import ru.spbau.drunkard.actors.Tavern;
 
 import java.util.ArrayList;
 
