@@ -24,4 +24,13 @@ abstract public class Actor {
     }
 
     abstract public void makeMove(int stepNumber);
+
+    abstract public void acceptVisitor(Actor visitor);
+
+    public void interact(Bottle obstacle){}
+    public void interact(Drunkard obstacle) {}
+    public void interact(Pole obstacle) {}
+    public void interact(Tavern obstacle) {}
+
+    public void afterMove(Position from) {}
 }

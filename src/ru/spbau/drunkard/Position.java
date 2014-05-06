@@ -21,6 +21,13 @@ public class Position {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        return result;
+    }
+
     public Position(Position other) {
         this(other.x, other.y);
     }

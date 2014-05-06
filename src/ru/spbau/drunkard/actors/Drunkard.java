@@ -33,44 +33,36 @@ public class Drunkard extends Actor {
         int direction = random.nextInt(4);
         Position newPos = new Position(pos.x + dx[direction], pos.y + dy[direction]);
 
-        if (field.isValidPos(newPos)) {
-            Actor obstacle = field.getOnPos(newPos);
-
-            if (obstacle == null) {
-                handleBottle();
-                pos = newPos;
-            } else {
-                handleInteraction(obstacle);
-            }
-        }
+        field.moveActor(this, newPos);
     }
 
-    void handleBottle() {
-        if (!hasBottle) {
-            return;
-        }
-
-        if (random.nextInt(30) == 0) {
-            field.addActor(new Bottle(new Position(pos), field));
-            hasBottle = false;
-        }
+    @Override
+    public void acceptVisitor(Actor visitor) {
+        visitor.interact(this);
     }
 
-    void handleInteraction(Actor obstacle) {
-        if (obstacle instanceof Bottle) {
-            state = State.LYING;
-        }
+    @Override
+    public void interact(Bottle obstacle) {
+        state = State.LYING;
+    }
 
-        if (obstacle instanceof Pole) {
+    @Override
+    public void interact(Pole obstacle) {
+        state = State.SLEEPING;
+    }
+
+    @Override
+    public void interact(Drunkard obstacle) {
+        if(obstacle.state == State.SLEEPING) {
             state = State.SLEEPING;
         }
+    }
 
-        if (obstacle instanceof Drunkard) {
-            Drunkard other = (Drunkard) obstacle;
-
-            if (other.state == State.SLEEPING) {
-                state = State.SLEEPING;
-            }
+    @Override
+    public void afterMove(Position from) {
+        if (hasBottle && random.nextInt(30) == 0) {
+            field.addActor(new Bottle(new Position(from), field));
+            hasBottle = false;
         }
     }
 }

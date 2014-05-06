@@ -2,34 +2,50 @@ package ru.spbau.drunkard;
 
 import ru.spbau.drunkard.actors.Actor;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Field {
     public final int width = 15;
     public final int height = 15;
 
-    private ArrayList<Actor> actors;
+    private Map<Position, Actor> actors;
 
-    public ArrayList<Actor> getActors() {
-        return actors;
+    public Collection<Actor> getActors() {
+        return actors.values();
     }
 
     public Field() {
-        this.actors = new ArrayList<Actor>();
+        this.actors = new HashMap<>();
     }
 
     public void addActor(Actor actor) {
-        actors.add(actor);
+        actors.put(actor.getPos(), actor);
+    }
+
+    public void addActor(Actor actor, Position pos) {
+        actor.setPos(pos);
+        actors.put(pos, actor);
     }
 
     public Actor getOnPos(Position pos) {
-        for (Actor actor : actors) {
-            if (actor.getPos().equals(pos)) {
-                return actor;
+        return actors.get(pos);
+    }
+
+    public void moveActor(Actor actor, Position to) {
+        Position from = actor.getPos();
+
+        if(actors.containsKey(to)) {
+            Actor obstacle = actors.get(to);
+            obstacle.acceptVisitor(actor);
+        }
+        else {
+            if(isValidPos(to)) {
+                actors.remove(from);
+                actors.put(to, actor);
+                actor.setPos(to);
+                actor.afterMove(from);
             }
         }
-
-        return null;
     }
 
     public boolean isValidPos(Position pos) {

@@ -17,7 +17,7 @@ public class Game {
     public void play() {
         init();
 
-        for (int i = 0; ; i++) {
+        for (int i = 0; i < 500; i++) {
             makeMove(i);
             printer.printField(i, field);
         }
@@ -31,7 +31,7 @@ public class Game {
     }
 
     public void makeMove(int stepNumber) {
-        ArrayList<Actor> actors = new ArrayList<Actor>(field.getActors());
+        ArrayList<Actor> actors = new ArrayList<>(field.getActors());
 
         for (Actor actor : actors) {
             actor.makeMove(stepNumber);

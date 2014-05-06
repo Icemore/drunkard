@@ -12,4 +12,9 @@ public class Pole extends Actor {
     public void makeMove(int stepNumber) {
         // do nothing
     }
+
+    @Override
+    public void acceptVisitor(Actor visitor) {
+        visitor.interact(this);
+    }
 }

@@ -24,4 +24,9 @@ public class Tavern extends Actor {
             field.addActor(new Drunkard(new Position(spawnPos), field));
         }
     }
+
+    @Override
+    public void acceptVisitor(Actor visitor) {
+        visitor.interact(this);
+    }
 }
