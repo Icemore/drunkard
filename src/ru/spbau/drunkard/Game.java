@@ -1,8 +1,6 @@
 package ru.spbau.drunkard;
 
-import ru.spbau.drunkard.actors.Actor;
-import ru.spbau.drunkard.actors.Pole;
-import ru.spbau.drunkard.actors.Tavern;
+import ru.spbau.drunkard.actors.*;
 
 import java.util.ArrayList;
 
@@ -28,6 +26,10 @@ public class Game {
 
         field.addActor(new Pole(new Position(7, 7), field));
         field.addActor(new Tavern(new Position(9, -1), field));
+        field.addActor(new RedemptionCentre(new Position(-1, 4), field));
+        Lantern lantern = new Lantern(new Position(10, 3), field);
+        field.addActor(lantern);
+        field.addActor(new PoliceStation(new Position(15, 3), field, lantern));
     }
 
     public void makeMove(int stepNumber) {

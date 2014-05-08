@@ -11,12 +11,17 @@ public class Printer {
     private Map<Class, Character> actorsSymbols;
 
     public Printer() {
-        actorsSymbols = new HashMap<Class, Character>();
-        drunkardSymbols = new HashMap<Drunkard.State, Character>();
+        actorsSymbols = new HashMap<>();
+        drunkardSymbols = new HashMap<>();
 
         actorsSymbols.put(Tavern.class, 'T');
         actorsSymbols.put(Pole.class, 'C');
         actorsSymbols.put(Bottle.class, 'B');
+        actorsSymbols.put(Lantern.class, 'L');
+        actorsSymbols.put(RedemptionCentre.class, 'R');
+        actorsSymbols.put(Beggar.class, 'z');
+        actorsSymbols.put(PoliceStation.class, 'S');
+        actorsSymbols.put(Policeman.class, 'P');
         actorsSymbols.put(null, '.');
 
         drunkardSymbols.put(Drunkard.State.WANDERING, 'D');
@@ -37,13 +42,19 @@ public class Printer {
     }
 
     void printField(int stepNumber, Field field) {
-        int[] shift = {1, 0};
-        char[][] graphics = new char[field.height + shift[0]][field.width + shift[1]];
+        int[] shift = {1, 1};
+        int[] extend = {0, 1};
+        char[][] graphics = new char[field.height + shift[0] + extend[0]][field.width + shift[1] + extend[1]];
 
         for (char[] row : graphics) {
-            Arrays.fill(row, getSymbol(null));
+            Arrays.fill(row, ' ');
         }
-        Arrays.fill(graphics[0], ' ');
+
+        for (int i = 0; i < field.height; i++) {
+            for (int j = 0; j < field.width; j++) {
+                graphics[i + shift[0]][j + shift[1]] = getSymbol(null);
+            }
+        }
 
         for (Actor actor : field.getActors()) {
             Position pos = actor.getPos();

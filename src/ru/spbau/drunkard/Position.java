@@ -8,6 +8,10 @@ public class Position {
         this.y = y;
     }
 
+    public Position(Position other) {
+        this(other.x, other.y);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -28,7 +32,7 @@ public class Position {
         return result;
     }
 
-    public Position(Position other) {
-        this(other.x, other.y);
+    public int dist(Position other) {
+        return Math.abs(this.x - other.x) + Math.abs(this.y - other.y);
     }
 }

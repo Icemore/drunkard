@@ -6,10 +6,6 @@ import ru.spbau.drunkard.Position;
 import java.util.Random;
 
 public class Drunkard extends Actor {
-    public enum State {
-        WANDERING, SLEEPING, LYING
-    }
-
     boolean hasBottle;
     State state;
     Random random;
@@ -31,7 +27,7 @@ public class Drunkard extends Actor {
         if (state != State.WANDERING) return;
 
         int direction = random.nextInt(4);
-        Position newPos = new Position(pos.x + dx[direction], pos.y + dy[direction]);
+        Position newPos = new Position(pos.x + Field.dx[direction], pos.y + Field.dy[direction]);
 
         field.moveActor(this, newPos);
     }
@@ -53,7 +49,7 @@ public class Drunkard extends Actor {
 
     @Override
     public void interact(Drunkard obstacle) {
-        if(obstacle.state == State.SLEEPING) {
+        if (obstacle.state == State.SLEEPING) {
             state = State.SLEEPING;
         }
     }
@@ -64,5 +60,9 @@ public class Drunkard extends Actor {
             field.addActor(new Bottle(new Position(from), field));
             hasBottle = false;
         }
+    }
+
+    public enum State {
+        WANDERING, SLEEPING, LYING
     }
 }

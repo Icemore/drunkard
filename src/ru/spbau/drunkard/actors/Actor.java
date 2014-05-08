@@ -4,9 +4,6 @@ import ru.spbau.drunkard.Field;
 import ru.spbau.drunkard.Position;
 
 abstract public class Actor {
-    static final int dx[] = {1, 0, -1, 0};
-    static final int dy[] = {0, 1, 0, -1};
-
     protected Position pos;
     protected Field field;
 
@@ -27,10 +24,33 @@ abstract public class Actor {
 
     abstract public void acceptVisitor(Actor visitor);
 
-    public void interact(Bottle obstacle){}
-    public void interact(Drunkard obstacle) {}
-    public void interact(Pole obstacle) {}
-    public void interact(Tavern obstacle) {}
+    public void interact(Bottle obstacle) {
+    }
 
-    public void afterMove(Position from) {}
+    public void interact(Drunkard obstacle) {
+    }
+
+    public void interact(Pole obstacle) {
+    }
+
+    public void interact(Tavern obstacle) {
+    }
+
+    public void interact(Lantern obstacle) {
+    }
+
+    public void interact(RedemptionCentre obstacle) {
+    }
+
+    public void interact(Beggar obstacle) {
+    }
+
+    public void interact(Policeman obstacle) {
+    }
+
+    public void interact(PoliceStation obstacle) {
+    }
+
+    public void afterMove(Position from) {
+    }
 }

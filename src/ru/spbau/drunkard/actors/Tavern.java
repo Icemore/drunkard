@@ -4,7 +4,7 @@ import ru.spbau.drunkard.Field;
 import ru.spbau.drunkard.Position;
 
 public class Tavern extends Actor {
-    private final int frequency = 20;
+    private static final int frequency = 20;
     private Position spawnPos;
 
     public Tavern(Position pos, Field field) {
