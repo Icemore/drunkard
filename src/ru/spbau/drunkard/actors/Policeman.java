@@ -17,12 +17,14 @@ public class Policeman extends Actor {
 
     @Override
     public void makeMove(int stepNumber) {
-        Position moveTo;
+        Position moveTo = null;
 
-        if (hasDrunkard) {
-            moveTo = field.findFirstStepInPath(this.getPos(), station.getPos());
-        } else {
+        if (!hasDrunkard) {
             moveTo = field.findFirstStepInPath(this.getPos(), goalDrunkard.getPos());
+        }
+
+        if (hasDrunkard || moveTo == null) {
+            moveTo = field.findFirstStepInPath(this.getPos(), station.getPos());
         }
 
         field.moveActor(this, moveTo);
