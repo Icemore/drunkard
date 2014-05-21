@@ -3,6 +3,7 @@ package ru.spbau.drunkard.actors;
 import ru.spbau.drunkard.Field;
 import ru.spbau.drunkard.Position;
 
+import java.util.List;
 import java.util.Random;
 
 public class Drunkard extends Actor {
@@ -26,8 +27,9 @@ public class Drunkard extends Actor {
     public void makeMove(int stepNumber) {
         if (state != State.WANDERING) return;
 
-        int direction = random.nextInt(4);
-        Position newPos = new Position(pos.x + Field.dx[direction], pos.y + Field.dy[direction]);
+        List<Position> neighbours = field.getNeighbours(pos);
+        int direction = random.nextInt(neighbours.size());
+        Position newPos = neighbours.get(direction);
 
         field.moveActor(this, newPos);
     }

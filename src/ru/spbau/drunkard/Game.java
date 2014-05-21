@@ -8,8 +8,9 @@ public class Game {
     Field field;
     Printer printer;
 
-    public Game(Printer printer) {
+    public Game(Printer printer, Field field) {
         this.printer = printer;
+        this.field = field;
     }
 
     public void play() {
@@ -22,7 +23,7 @@ public class Game {
     }
 
     public void init() {
-        field = new Field();
+        field.clear();
 
         field.addActor(new Pole(new Position(7, 7), field));
         field.addActor(new Tavern(new Position(9, -1), field));

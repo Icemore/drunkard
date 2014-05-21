@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Printer {
+public abstract class Printer {
+    protected Position shift = new Position(1, 1);
+    protected Position extend = new Position(1, 0);
     private Map<Drunkard.State, Character> drunkardSymbols;
     private Map<Class, Character> actorsSymbols;
 
@@ -42,9 +44,8 @@ public class Printer {
     }
 
     void printField(int stepNumber, Field field) {
-        int[] shift = {1, 1};
-        int[] extend = {0, 1};
-        char[][] graphics = new char[field.height + shift[0] + extend[0]][field.width + shift[1] + extend[1]];
+        Position size = getGraphicsSize(field);
+        char[][] graphics = new char[size.y][size.x];
 
         for (char[] row : graphics) {
             Arrays.fill(row, ' ');
@@ -52,7 +53,8 @@ public class Printer {
 
         for (int i = 0; i < field.height; i++) {
             for (int j = 0; j < field.width; j++) {
-                graphics[i + shift[0]][j + shift[1]] = getSymbol(null);
+                Position pos = getRealPosition(new Position(i, j));
+                graphics[pos.y][pos.x] = getSymbol(null);
             }
         }
 
@@ -60,7 +62,8 @@ public class Printer {
             Position pos = actor.getPos();
             char symbol = getSymbol(actor);
 
-            graphics[pos.y + shift[0]][pos.x + shift[1]] = symbol;
+            Position viewPos = getRealPosition(pos);
+            graphics[viewPos.y][viewPos.x] = symbol;
         }
 
         System.out.println("Step #" + stepNumber);
@@ -68,4 +71,8 @@ public class Printer {
             System.out.println(row);
         System.out.println();
     }
+
+    protected abstract Position getGraphicsSize(Field field);
+
+    protected abstract Position getRealPosition(Position pos);
 }

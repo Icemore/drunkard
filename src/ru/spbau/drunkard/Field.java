@@ -4,15 +4,17 @@ import ru.spbau.drunkard.actors.Actor;
 
 import java.util.*;
 
-public class Field {
-    public static final int dx[] = {1, 0, -1, 0};
-    public static final int dy[] = {0, 1, 0, -1};
+public abstract class Field {
     public final int width = 15;
     public final int height = 15;
     private Map<Position, Actor> actors;
 
     public Field() {
         this.actors = new HashMap<>();
+    }
+
+    public void clear() {
+        actors.clear();
     }
 
     public Collection<Actor> getActors() {
@@ -72,9 +74,7 @@ public class Field {
         while (!queue.isEmpty()) {
             Position cur = queue.poll();
 
-            for (int direction = 0; direction < 4; direction++) {
-                Position to = new Position(cur.x + dx[direction], cur.y + dy[direction]);
-
+            for (Position to : getNeighbours(cur)) {
                 if (to.equals(start)) {
                     return cur;
                 }
@@ -111,5 +111,17 @@ public class Field {
         }
 
         return result;
+    }
+
+    public abstract List<Position> getNeighbours(Position pos);
+
+    protected List<Position> getNeighbours(Position pos, Position[] directions) {
+        List<Position> res = new ArrayList<>();
+
+        for (Position direction : directions) {
+            res.add(new Position(pos.x + direction.x, pos.y + direction.y));
+        }
+
+        return res;
     }
 }
